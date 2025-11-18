@@ -89,20 +89,49 @@ const getUniqueValues = (arr1: (number | string)[], arr2: (number | string)[]): 
 
     const result: (number | string)[] = [];
 
-    for(let i = 0; i < arr1.length; i++){
-        if(!result.includes(arr1[i])){
+    const exists = (value: number | string, array: (number | string)[]) => {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] === value) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    for (let i = 0; i < arr1.length; i++) {
+        if (!exists(arr1[i], result)) {
             result.push(arr1[i]);
         }
     }
 
-    for(let j = 0; j < arr2.length; j++){
-        if(!result.includes(arr2[j])){
-            result.push(arr2[j])
+    for (let j = 0; j < arr2.length; j++) {
+        if (!exists(arr2[j], result)) {
+            result.push(arr2[j]);
         }
     }
 
     return result;
 }
-const array1 = [1, 2, 3, 4, 5];
-const array2 = [3, 4, 5, 6, 7];
-console.log(getUniqueValues(array1, array2));
+
+
+
+
+type Product = {
+    name: string;
+    price: number;
+    quantity: number;
+    discount?: number;
+};
+
+function calculateTotalPrice(products: Product[]): number{
+    if(products.length === 0) return 0;
+
+    return products.map((product)=> {
+        const total = product.price * product.quantity;
+        if(product.discount){
+            return total * (1 - product.discount / 100);
+        }
+        return total;
+    }).reduce((acc, curr)=> acc + curr, 0);
+}
+
