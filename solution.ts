@@ -82,11 +82,27 @@ const printBookDetails = (book: Book): void =>{
     console.log(`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${availability}`);
 }
 
-const myBook: Book = {
-  title: 'The Great Gatsby',
-  author: 'F. Scott Fitzgerald',
-  publishedYear: 1925,
-  isAvailable: true,
-};
 
-printBookDetails(myBook);
+
+
+const getUniqueValues = (arr1: (number | string)[], arr2: (number | string)[]): (number | string)[] =>{
+
+    const result: (number | string)[] = [];
+
+    for(let i = 0; i < arr1.length; i++){
+        if(!result.includes(arr1[i])){
+            result.push(arr1[i]);
+        }
+    }
+
+    for(let j = 0; j < arr2.length; j++){
+        if(!result.includes(arr2[j])){
+            result.push(arr2[j])
+        }
+    }
+
+    return result;
+}
+const array1 = [1, 2, 3, 4, 5];
+const array2 = [3, 4, 5, 6, 7];
+console.log(getUniqueValues(array1, array2));
